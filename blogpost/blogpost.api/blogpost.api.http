@@ -1,6 +1,0 @@
-@blogpost.api_HostAddress = http://localhost:5095
-
-GET {{blogpost.api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
