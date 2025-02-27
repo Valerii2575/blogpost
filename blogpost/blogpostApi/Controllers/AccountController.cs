@@ -1,9 +1,7 @@
-﻿using blogpost.Application.Common.Interfaces;
-using blogpost.Application.DTOs;
-using blogpost.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
+﻿using blogpost.Application.Command.Auth.Login;
+using blogpost.Application.Command.Auth.Register;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace blogpostApi.Controllers
 {
@@ -11,28 +9,28 @@ namespace blogpostApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IIdentityService _identityService;        
+        private readonly ISender _sender;
 
-        public AccountController(IIdentityService identityService)
+        public AccountController(ISender sender)
         {
-            _identityService = identityService;
+            _sender = sender;
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto model)
+        public async Task<ActionResult<LoginCommandResult>> Login(LoginCommand cmd)
         {
-            var result = await _identityService.Login(model);
+            var user = await _sender.Send(cmd);
 
-            return Ok();
+            return Ok(user);
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto model)
+        public async Task<ActionResult<RegisterCommandResult>> Register(RegisterCommand cmd)
         {
             
-            var result = await _identityService.Register(model);
+            var result = await _sender.Send(cmd);
 
-            return Ok("Your account has been created, you can ");
+            return Ok(result);
         }
 
         
