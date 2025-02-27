@@ -1,10 +1,12 @@
-﻿using blogpost.Application.DTOs;
+﻿using blogpost.Application.Command.Auth.Login;
+using blogpost.Application.Command.Auth.Register;
+using blogpost.Application.DTOs;
 
 namespace blogpost.Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<UserDto> Login(LoginDto model);
-        Task<bool> Register(RegisterDto model);
+        Task<LoginCommandResult> Login(LoginCommand model);
+        Task<RegisterCommandResult> Register(RegisterDto model);
     }
 }
