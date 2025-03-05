@@ -1,6 +1,7 @@
 ﻿using blogpost.Application.Command.Auth.Login;
 using blogpost.Application.Command.Auth.Register;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blogpostApi.Controllers
@@ -33,7 +34,9 @@ namespace blogpostApi.Controllers
             return Ok(result);
         }
 
-        
+        //[Authorize]
+        //[HttpGet("refresh-user-token")]
+        //public async Task<ActionResult<>>
 
     }
 }
