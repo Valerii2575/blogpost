@@ -1,1 +1,6 @@
-<p>article-list works!</p>
+<div *ngFor="let article of articleDtos">
+  <p>{{article.title}}</p>
+  <p>{{article.description}}</p>
+  <p>{{article.content}}</p>
+  <p>{{article.author}}</p>
+</div>

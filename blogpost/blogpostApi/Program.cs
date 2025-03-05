@@ -38,12 +38,14 @@ builder.Services.AddIdentityCore<User>(options =>
 
     options.SignIn.RequireConfirmedEmail = true;
 })
-                .AddRoles<IdentityRole>()
-                .AddRoleManager<RoleManager<IdentityRole>>()
-                .AddEntityFrameworkStores<BlogPostAppDbContext>()
-                .AddSignInManager<SignInManager<User>>()
-                .AddUserManager<UserManager<User>>()
-                .AddDefaultTokenProviders();
+.AddRoles<IdentityRole>()
+.AddRoleManager<RoleManager<IdentityRole>>()
+.AddEntityFrameworkStores<BlogPostAppDbContext>()
+.AddSignInManager<SignInManager<User>>()
+.AddUserManager<UserManager<User>>()
+.AddDefaultTokenProviders();
+
+var issuer = builder.Configuration["JWT:Issuer"];
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -64,9 +66,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseCors(opt =>
+{
+    opt.AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins(builder.Configuration["JWT:ClientUrl"]);
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

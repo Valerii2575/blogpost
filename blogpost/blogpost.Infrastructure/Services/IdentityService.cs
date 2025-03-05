@@ -1,6 +1,7 @@
 ﻿using blogpost.Application.Command.Auth.Login;
 using blogpost.Application.Command.Auth.Register;
 using blogpost.Application.Mapping.UserAccount;
+using blogpost.Application.Queries.Account;
 using blogpost.Domain.Entities;
 using blogpost.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
@@ -71,13 +72,21 @@ namespace blogpost.Infrastructure.Services
             };
         }
 
+        //public async Task<GetRefreshUserTokenQueryResult> RefreshUserToken()
+        //{
+        //    var nameIdentifier = ClaimTypes.NameIdentifier;
+        //    var user = await _userManager.FindByIdAsync(nameIdentifier);
+
+
+        //}
+
         public async Task<RegisterCommandResult> Register(RegisterDto model)
         {
             if (await CheckEmailExistsAsync(model.Email))
             {
                 return new RegisterCommandResult 
                 { 
-                    Status = StatusResult.Success,
+                    Status = StatusResult.BadRequest,
                     Message = $"An existing account is using {model.Email}, email address."
                 };
             }
@@ -99,9 +108,23 @@ namespace blogpost.Infrastructure.Services
                return new RegisterCommandResult { Status = StatusResult.BadRequest, 
                             Message = string.Join(';', result.Errors.Select(x => x.Description).ToList()) };
             }
+            else
+            {
+                return new RegisterCommandResult { Status = StatusResult.Success, Message = $"Your account {model.FirstName}, has been created, you can login" };
+            }
 
-            return new RegisterCommandResult { Status = StatusResult.Success };
+            
         }
+
+        //private async Task<UserDto> CreateApplicationUserDto(User user)
+        //{
+        //    await SaveRefreshTokenAsync(user)
+        //}
+
+        //private async Task SaveRefreshTokenAsync(User user)
+        //{
+        //    var refreshToken = _jw
+        //}
 
         private async Task<bool> CheckEmailExistsAsync(string email)
         {
