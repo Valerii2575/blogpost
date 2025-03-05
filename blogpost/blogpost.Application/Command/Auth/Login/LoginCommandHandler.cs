@@ -15,7 +15,7 @@ namespace blogpost.Application.Command.Auth.Login
         {
             var result = await _identityService.Login(command);
 
-            return new LoginCommandResult { User = result.User };
+            return result;
         }
     }
 }

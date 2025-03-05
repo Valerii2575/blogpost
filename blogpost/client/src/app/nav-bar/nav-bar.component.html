@@ -16,7 +16,7 @@
             <a class="nav-link" routerLink="/articles/list" routerLinkActive="active">Article</a>
           </li>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" *ngIf="(accountService.user$ | async) === null">
           <li class="nav-item">
             <a class="btn btn-secondary mx-2" routerLink="/account/register" routerLinkActive="active">Register</a>
           </li>
@@ -24,6 +24,13 @@
             <a class="btn btn-secondary mx-2" routerLink="/account/login" routerLinkActive="active">Login</a>
           </li>
         </ul>
+
+        <div class="d-flex align-items-center" *ngIf="(accountService.user$ | async) as userDto">
+          <a class="text-white" style="text-decoration: none; cursor: pointer;">
+            Hi <span class="h3 text-warning">{{ userDto.firstName | titlecase}}</span>
+          </a>
+          <a class="btn btn-secondary" (click)="logout()">Logout</a>
+        </div>
       </div>
     </div>
   </nav>
