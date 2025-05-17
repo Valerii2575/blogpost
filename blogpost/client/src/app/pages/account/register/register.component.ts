@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../account.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegisterCommand } from 'src/app/shared/models/register';
+import { RegisterCommand } from 'src/app/shared/models/account/register';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,14 +15,20 @@ export class RegisterComponent implements OnInit{
 
 registerForm: FormGroup = new FormGroup({});
 submitted = false;
-errorMessages : string | undefined ;
+errorMessages : string[] = [] ;
 
   constructor(private accountService: AccountService,
     private sharedService: SharedService,
     private formBuilder: FormBuilder,
     private router: Router
   ){
-
+    this.accountService.user$.pipe(take(1)).subscribe({
+      next: user => {
+        if(user){
+          this.router.navigateByUrl('/');
+        }
+      }
+    })
   }
   ngOnInit(): void {
     this.initializeForm();
@@ -39,7 +46,7 @@ errorMessages : string | undefined ;
 
   register(){
     this.submitted = true;
-    this.errorMessages = "";
+    this.errorMessages = [];
 
     if(this.registerForm.valid){
       const formValue = this.registerForm.value;
@@ -54,7 +61,7 @@ errorMessages : string | undefined ;
       this.accountService.register(registerCommand).subscribe({
         next: (response) => {
           if(response.status != 0){
-            this.errorMessages = response.message
+            //this.errorMessages = response.message
           }
           else{
             this.sharedService.showNotification(true, 'Register', response.message);

@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, ReplaySubject } from 'rxjs';
-import { GetRefreshUserTokenQueryResult, LoginCommand, LoginCommandResult } from 'src/app/shared/models/login';
+import { GetRefreshUserTokenQueryResult, LoginCommand, LoginCommandResult } from 'src/app/shared/models/account/login';
 
-import { RegisterCommand, RegisterCommandResult, RegisterDto } from 'src/app/shared/models/register';
-import { UserDto } from 'src/app/shared/models/userDto';
+import { RegisterCommand, RegisterCommandResult, RegisterDto } from 'src/app/shared/models/account/register';
+import { UserDto } from 'src/app/shared/models/account/userDto';
 import { environment } from 'src/environments/environment.development';
 import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
+import { ConfirmEmail } from 'src/app/shared/models/account/confirmEmails';
+import { ResetPassword } from 'src/app/shared/models/account/resetPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,22 @@ export class AccountService {
   register(model: RegisterCommand) : Observable<RegisterCommandResult>{
 
     return this.http.post<RegisterCommandResult>(`${this.baseUrl}/${this.api}/register`, model);
+  }
+
+  confirmEmail(model: ConfirmEmail){
+    return this.http.put(`${this.baseUrl}/${this.api}/confirm-email`, model);
+  }
+
+  resendEmailConfirmationLink(email: string){
+    return this.http.post(`${environment.appUrl}/api/account/resend-email-confirmation-link/${email}`, {});
+  }
+
+  forgotUsernameOrPassword(email: string){
+    return this.http.post(`${environment.appUrl}/api/account/forgot-username-or-password/${email}`, {});
+  }
+
+  resetPassword(model: ResetPassword){
+    return this.http.put(`${environment.appUrl}/api/account/reset-password`, model);
   }
 
   login(model: LoginCommand) {

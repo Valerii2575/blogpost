@@ -1,5 +1,4 @@
 ﻿using blogpost.Application.DTOs;
-using MediatR;
 
 namespace blogpost.Application.Queries.Account
 {

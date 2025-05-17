@@ -1,5 +1,4 @@
 ﻿using blogpost.Application.Common.Interfaces;
-using MediatR;
 
 namespace blogpost.Application.Queries.Article.GetAll
 {

@@ -1,4 +1,4 @@
-import { UserDto } from "./userDto";
+import { UserDto } from "../account/userDto";
 
 export interface LoginCommand{
   LoginDto: LoginDto;

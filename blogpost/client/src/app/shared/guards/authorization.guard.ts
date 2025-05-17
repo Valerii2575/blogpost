@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { SharedService } from '../shared.service';
 import { AccountService } from 'src/app/pages/account/account.service';
 import { map, Observable } from 'rxjs';
-import { UserDto } from '../models/userDto';
+import { UserDto } from '../models/account/userDto';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
