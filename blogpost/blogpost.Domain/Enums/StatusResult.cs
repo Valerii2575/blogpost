@@ -7,6 +7,7 @@ namespace blogpost.Domain.Enums
         NotFound,
         BadRequest,
         InternalError,
+        Unauthorized,
         ConfirmedEmail,
     }
 }

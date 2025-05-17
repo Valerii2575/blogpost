@@ -1,7 +1,6 @@
 ﻿using blogpost.Application.Common.Interfaces;
 using blogpost.Application.DTOs;
 using blogpostApi.Application.Queries.Article.GetArticleById;
-using MediatR;
 
 namespace blogpostApi.Application.Queries.Articles.GetArticleById
 {

@@ -27,6 +27,7 @@ builder.Services.AddIdentityService(builder.Configuration);
 builder.Services.AddDbContextService(builder.Configuration);
 
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddIdentityCore<User>(options =>
 {

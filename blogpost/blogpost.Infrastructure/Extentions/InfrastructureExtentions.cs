@@ -9,7 +9,6 @@ namespace blogpost.Infrastructure.Extentions
         public static IServiceCollection AddInfrastructureService(this IServiceCollection services)
         {
             services.AddScoped<IArticleService, ArticleService>();
-            
             //services.AddScoped<UserManager<UserDto>>();
             //services.AddScoped<SignInManager<UserDto>>();
 

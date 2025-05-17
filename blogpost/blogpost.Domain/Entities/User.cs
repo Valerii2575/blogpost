@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
+﻿
 namespace blogpost.Domain.Entities
 {
     public class User : IdentityUser

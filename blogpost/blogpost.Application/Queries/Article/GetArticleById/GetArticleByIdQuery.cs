@@ -1,5 +1,4 @@
 ﻿using blogpost.Application.DTOs;
-using MediatR;
 
 namespace blogpostApi.Application.Queries.Article.GetArticleById
 {

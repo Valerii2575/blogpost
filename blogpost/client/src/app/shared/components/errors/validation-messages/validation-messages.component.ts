@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./validation-messages.component.css']
 })
 export class ValidationMessagesComponent {
-  @Input() errorMessage : string | undefined;
+  @Input() errorMessages : string[] = [];
 }

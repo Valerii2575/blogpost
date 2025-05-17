@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginCommand } from 'src/app/shared/models/login';
+import { LoginCommand } from 'src/app/shared/models/account/login';
 import { AccountService } from '../account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
-import { UserDto } from 'src/app/shared/models/userDto';
+import { UserDto } from 'src/app/shared/models/account/userDto';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
-  errorMessages : string | undefined ;
+  errorMessages : string[] = [];
   returnUrl: string = '';
 
   constructor(private accountService: AccountService,
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.submitted = true;
-    this.errorMessages = "";
+    this.errorMessages = [];
     if(this.loginForm.valid){
       const formValue = this.loginForm.value;
       const loginCommand : LoginCommand = {
@@ -75,5 +75,9 @@ export class LoginComponent implements OnInit {
       })
 
     }
+  }
+
+  resendEmailconfirmationLink(){
+    this.router.navigateByUrl('/account/send-email/resend-email-confirmation-link');
   }
 }
